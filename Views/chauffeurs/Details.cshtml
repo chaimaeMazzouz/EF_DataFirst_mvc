@@ -1,0 +1,58 @@
+﻿@model AtelierPratique_16.Models.chauffeur
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>chauffeur</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Nom)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nom)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Prenom)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Prenom)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Adresse)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Adresse)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Date_Recrutement)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Date_Recrutement)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Salaire)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Salaire)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID_chauffeur }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

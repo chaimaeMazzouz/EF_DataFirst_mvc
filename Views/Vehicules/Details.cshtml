@@ -1,0 +1,42 @@
+﻿@model AtelierPratique_16.Models.Vehicule
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Vehicule</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Marque)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Marque)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Type_Vehicule)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Type_Vehicule)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Dt_Mise_Service)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Dt_Mise_Service)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Immatricule }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -1,0 +1,335 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="CompagnieVoyageModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="billet">
+          <Key>
+            <PropertyRef Name="N_Billet" />
+          </Key>
+          <Property Name="N_Billet" Type="int" Nullable="false" />
+          <Property Name="Date_Delivrance" Type="date" />
+          <Property Name="ID_Voyage" Type="int" />
+        </EntityType>
+        <EntityType Name="chauffeur">
+          <Key>
+            <PropertyRef Name="ID_chauffeur" />
+          </Key>
+          <Property Name="ID_chauffeur" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="Nom" Type="varchar" MaxLength="15" />
+          <Property Name="Prenom" Type="varchar" MaxLength="15" />
+          <Property Name="Adresse" Type="varchar" MaxLength="40" />
+          <Property Name="Date_Recrutement" Type="date" />
+          <Property Name="Salaire" Type="money" />
+        </EntityType>
+        <EntityType Name="Membre">
+          <Key>
+            <PropertyRef Name="pseudo" />
+          </Key>
+          <Property Name="pseudo" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="pass" Type="varchar" MaxLength="10" />
+          <Property Name="matricule" Type="varchar" MaxLength="7" />
+          <Property Name="nom" Type="varchar" MaxLength="20" />
+          <Property Name="prenom" Type="varchar" MaxLength="20" />
+          <Property Name="service_" Type="varchar" MaxLength="25" />
+          <Property Name="mail" Type="varchar" MaxLength="50" />
+          <Property Name="categorie" Type="varchar" MaxLength="25" />
+        </EntityType>
+        <EntityType Name="Vehicule">
+          <Key>
+            <PropertyRef Name="Immatricule" />
+          </Key>
+          <Property Name="Immatricule" Type="varchar" MaxLength="12" Nullable="false" />
+          <Property Name="Marque" Type="varchar" MaxLength="15" />
+          <Property Name="Type_Vehicule" Type="varchar" MaxLength="8" />
+          <Property Name="Dt_Mise_Service" Type="date" />
+        </EntityType>
+        <EntityType Name="voyage">
+          <Key>
+            <PropertyRef Name="ID_Voyage" />
+          </Key>
+          <Property Name="ID_Voyage" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Date_Voyage" Type="date" />
+          <Property Name="Ville_Depart" Type="varchar" MaxLength="16" Nullable="false" />
+          <Property Name="Ville_Arrive" Type="varchar" MaxLength="16" Nullable="false" />
+          <Property Name="Duree" Type="decimal" Precision="4" Scale="2" />
+          <Property Name="Nbre_Voyageurs" Type="int" />
+          <Property Name="Place_libre" Type="int" />
+          <Property Name="Tarif" Type="money" />
+          <Property Name="ID_chauffeur" Type="varchar" MaxLength="10" />
+          <Property Name="Immatricule" Type="varchar" MaxLength="12" />
+        </EntityType>
+        <Association Name="FK__billet__ID_Voyag__4316F928">
+          <End Role="voyage" Type="Self.voyage" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="billet" Type="Self.billet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="voyage">
+              <PropertyRef Name="ID_Voyage" />
+            </Principal>
+            <Dependent Role="billet">
+              <PropertyRef Name="ID_Voyage" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__voyage__Immatric__3F466844">
+          <End Role="Vehicule" Type="Self.Vehicule" Multiplicity="0..1" />
+          <End Role="voyage" Type="Self.voyage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Vehicule">
+              <PropertyRef Name="Immatricule" />
+            </Principal>
+            <Dependent Role="voyage">
+              <PropertyRef Name="Immatricule" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Fk_voyage_chauffeur">
+          <End Role="chauffeur" Type="Self.chauffeur" Multiplicity="0..1" />
+          <End Role="voyage" Type="Self.voyage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="chauffeur">
+              <PropertyRef Name="ID_chauffeur" />
+            </Principal>
+            <Dependent Role="voyage">
+              <PropertyRef Name="ID_chauffeur" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="CompagnieVoyageModelStoreContainer">
+          <EntitySet Name="billet" EntityType="Self.billet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="chauffeur" EntityType="Self.chauffeur" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Membre" EntityType="Self.Membre" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Vehicule" EntityType="Self.Vehicule" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="voyage" EntityType="Self.voyage" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__billet__ID_Voyag__4316F928" Association="Self.FK__billet__ID_Voyag__4316F928">
+            <End Role="voyage" EntitySet="voyage" />
+            <End Role="billet" EntitySet="billet" />
+          </AssociationSet>
+          <AssociationSet Name="FK__voyage__Immatric__3F466844" Association="Self.FK__voyage__Immatric__3F466844">
+            <End Role="Vehicule" EntitySet="Vehicule" />
+            <End Role="voyage" EntitySet="voyage" />
+          </AssociationSet>
+          <AssociationSet Name="Fk_voyage_chauffeur" Association="Self.Fk_voyage_chauffeur">
+            <End Role="chauffeur" EntitySet="chauffeur" />
+            <End Role="voyage" EntitySet="voyage" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="CompagnieVoyageModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="billet">
+          <Key>
+            <PropertyRef Name="N_Billet" />
+          </Key>
+          <Property Name="N_Billet" Type="Int32" Nullable="false" />
+          <Property Name="Date_Delivrance" Type="DateTime" Precision="0" />
+          <Property Name="ID_Voyage" Type="Int32" />
+          <NavigationProperty Name="voyage" Relationship="Self.FK__billet__ID_Voyag__4316F928" FromRole="billet" ToRole="voyage" />
+        </EntityType>
+        <EntityType Name="chauffeur">
+          <Key>
+            <PropertyRef Name="ID_chauffeur" />
+          </Key>
+          <Property Name="ID_chauffeur" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Nom" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="Prenom" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="Adresse" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="Date_Recrutement" Type="DateTime" Precision="0" />
+          <Property Name="Salaire" Type="Decimal" Precision="19" Scale="4" />
+          <NavigationProperty Name="voyage" Relationship="Self.Fk_voyage_chauffeur" FromRole="chauffeur" ToRole="voyage" />
+        </EntityType>
+        <EntityType Name="Membre">
+          <Key>
+            <PropertyRef Name="pseudo" />
+          </Key>
+          <Property Name="pseudo" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="pass" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="matricule" Type="String" MaxLength="7" FixedLength="false" Unicode="false" />
+          <Property Name="nom" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="prenom" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="service_" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="mail" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="categorie" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Vehicule">
+          <Key>
+            <PropertyRef Name="Immatricule" />
+          </Key>
+          <Property Name="Immatricule" Type="String" MaxLength="12" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Marque" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="Type_Vehicule" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="Dt_Mise_Service" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="voyage" Relationship="Self.FK__voyage__Immatric__3F466844" FromRole="Vehicule" ToRole="voyage" />
+        </EntityType>
+        <EntityType Name="voyage">
+          <Key>
+            <PropertyRef Name="ID_Voyage" />
+          </Key>
+          <Property Name="ID_Voyage" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Date_Voyage" Type="DateTime" Precision="0" />
+          <Property Name="Ville_Depart" Type="String" MaxLength="16" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Ville_Arrive" Type="String" MaxLength="16" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Duree" Type="Decimal" Precision="4" Scale="2" />
+          <Property Name="Nbre_Voyageurs" Type="Int32" />
+          <Property Name="Place_libre" Type="Int32" />
+          <Property Name="Tarif" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="ID_chauffeur" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Immatricule" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="billet" Relationship="Self.FK__billet__ID_Voyag__4316F928" FromRole="voyage" ToRole="billet" />
+          <NavigationProperty Name="chauffeur" Relationship="Self.Fk_voyage_chauffeur" FromRole="voyage" ToRole="chauffeur" />
+          <NavigationProperty Name="Vehicule" Relationship="Self.FK__voyage__Immatric__3F466844" FromRole="voyage" ToRole="Vehicule" />
+        </EntityType>
+        <Association Name="FK__billet__ID_Voyag__4316F928">
+          <End Role="voyage" Type="Self.voyage" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="billet" Type="Self.billet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="voyage">
+              <PropertyRef Name="ID_Voyage" />
+            </Principal>
+            <Dependent Role="billet">
+              <PropertyRef Name="ID_Voyage" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Fk_voyage_chauffeur">
+          <End Role="chauffeur" Type="Self.chauffeur" Multiplicity="0..1" />
+          <End Role="voyage" Type="Self.voyage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="chauffeur">
+              <PropertyRef Name="ID_chauffeur" />
+            </Principal>
+            <Dependent Role="voyage">
+              <PropertyRef Name="ID_chauffeur" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__voyage__Immatric__3F466844">
+          <End Role="Vehicule" Type="Self.Vehicule" Multiplicity="0..1" />
+          <End Role="voyage" Type="Self.voyage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Vehicule">
+              <PropertyRef Name="Immatricule" />
+            </Principal>
+            <Dependent Role="voyage">
+              <PropertyRef Name="Immatricule" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="CompagnieVoyageEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="billet" EntityType="Self.billet" />
+          <EntitySet Name="chauffeur" EntityType="Self.chauffeur" />
+          <EntitySet Name="Membre" EntityType="Self.Membre" />
+          <EntitySet Name="Vehicule" EntityType="Self.Vehicule" />
+          <EntitySet Name="voyage" EntityType="Self.voyage" />
+          <AssociationSet Name="FK__billet__ID_Voyag__4316F928" Association="Self.FK__billet__ID_Voyag__4316F928">
+            <End Role="voyage" EntitySet="voyage" />
+            <End Role="billet" EntitySet="billet" />
+          </AssociationSet>
+          <AssociationSet Name="Fk_voyage_chauffeur" Association="Self.Fk_voyage_chauffeur">
+            <End Role="chauffeur" EntitySet="chauffeur" />
+            <End Role="voyage" EntitySet="voyage" />
+          </AssociationSet>
+          <AssociationSet Name="FK__voyage__Immatric__3F466844" Association="Self.FK__voyage__Immatric__3F466844">
+            <End Role="Vehicule" EntitySet="Vehicule" />
+            <End Role="voyage" EntitySet="voyage" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="CompagnieVoyageModelStoreContainer" CdmEntityContainer="CompagnieVoyageEntities">
+          <EntitySetMapping Name="billet">
+            <EntityTypeMapping TypeName="CompagnieVoyageModel.billet">
+              <MappingFragment StoreEntitySet="billet">
+                <ScalarProperty Name="N_Billet" ColumnName="N_Billet" />
+                <ScalarProperty Name="Date_Delivrance" ColumnName="Date_Delivrance" />
+                <ScalarProperty Name="ID_Voyage" ColumnName="ID_Voyage" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="chauffeur">
+            <EntityTypeMapping TypeName="CompagnieVoyageModel.chauffeur">
+              <MappingFragment StoreEntitySet="chauffeur">
+                <ScalarProperty Name="ID_chauffeur" ColumnName="ID_chauffeur" />
+                <ScalarProperty Name="Nom" ColumnName="Nom" />
+                <ScalarProperty Name="Prenom" ColumnName="Prenom" />
+                <ScalarProperty Name="Adresse" ColumnName="Adresse" />
+                <ScalarProperty Name="Date_Recrutement" ColumnName="Date_Recrutement" />
+                <ScalarProperty Name="Salaire" ColumnName="Salaire" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Membre">
+            <EntityTypeMapping TypeName="CompagnieVoyageModel.Membre">
+              <MappingFragment StoreEntitySet="Membre">
+                <ScalarProperty Name="pseudo" ColumnName="pseudo" />
+                <ScalarProperty Name="pass" ColumnName="pass" />
+                <ScalarProperty Name="matricule" ColumnName="matricule" />
+                <ScalarProperty Name="nom" ColumnName="nom" />
+                <ScalarProperty Name="prenom" ColumnName="prenom" />
+                <ScalarProperty Name="service_" ColumnName="service_" />
+                <ScalarProperty Name="mail" ColumnName="mail" />
+                <ScalarProperty Name="categorie" ColumnName="categorie" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Vehicule">
+            <EntityTypeMapping TypeName="CompagnieVoyageModel.Vehicule">
+              <MappingFragment StoreEntitySet="Vehicule">
+                <ScalarProperty Name="Immatricule" ColumnName="Immatricule" />
+                <ScalarProperty Name="Marque" ColumnName="Marque" />
+                <ScalarProperty Name="Type_Vehicule" ColumnName="Type_Vehicule" />
+                <ScalarProperty Name="Dt_Mise_Service" ColumnName="Dt_Mise_Service" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="voyage">
+            <EntityTypeMapping TypeName="CompagnieVoyageModel.voyage">
+              <MappingFragment StoreEntitySet="voyage">
+                <ScalarProperty Name="ID_Voyage" ColumnName="ID_Voyage" />
+                <ScalarProperty Name="Date_Voyage" ColumnName="Date_Voyage" />
+                <ScalarProperty Name="Ville_Depart" ColumnName="Ville_Depart" />
+                <ScalarProperty Name="Ville_Arrive" ColumnName="Ville_Arrive" />
+                <ScalarProperty Name="Duree" ColumnName="Duree" />
+                <ScalarProperty Name="Nbre_Voyageurs" ColumnName="Nbre_Voyageurs" />
+                <ScalarProperty Name="Place_libre" ColumnName="Place_libre" />
+                <ScalarProperty Name="Tarif" ColumnName="Tarif" />
+                <ScalarProperty Name="ID_chauffeur" ColumnName="ID_chauffeur" />
+                <ScalarProperty Name="Immatricule" ColumnName="Immatricule" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

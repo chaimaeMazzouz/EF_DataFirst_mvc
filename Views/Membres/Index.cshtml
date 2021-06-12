@@ -1,0 +1,69 @@
+﻿@model IEnumerable<AtelierPratique_16.Models.Membre>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Membres</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.pass)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.matricule)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.nom)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.prenom)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.service_)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.mail)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.categorie)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.pass)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.matricule)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.nom)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.prenom)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.service_)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.mail)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.categorie)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.pseudo }) |
+            @Html.ActionLink("Details", "Details", new { id=item.pseudo }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.pseudo })
+        </td>
+    </tr>
+}
+
+</table>

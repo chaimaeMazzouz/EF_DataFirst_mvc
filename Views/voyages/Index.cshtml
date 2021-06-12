@@ -1,0 +1,81 @@
+﻿@model IEnumerable<AtelierPratique_16.Models.voyage>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Voyages</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Date_Voyage)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Ville_Depart)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Ville_Arrive)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Duree)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Nbre_Voyageurs)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Place_libre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Tarif)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.chauffeur.Nom)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Vehicule.Marque)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Date_Voyage)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Ville_Depart)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Ville_Arrive)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Duree)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Nbre_Voyageurs)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Place_libre)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Tarif)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.chauffeur.Nom)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Vehicule.Marque)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID_Voyage }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ID_Voyage }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID_Voyage })
+        </td>
+    </tr>
+}
+
+</table>
